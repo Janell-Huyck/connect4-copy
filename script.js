@@ -48,31 +48,92 @@
 //     []
 // ];
 
-function selectStartingPlayer() {
+let columnOne = []
+let columnTwo = []
+let columnThree = []
+let columnFour = []
+let columnFive = []
+let columnSix = []
+let columnSeven = []
 
+let columnOneDiv = document.getElementById("columnOne")
+let columnTowDiv = document.getElementById("columnTwo")
+let columnThreeDiv = document.getElementById("columnThree")
+let columnFourDiv = document.getElementById("columnFour")
+let columnFiveDiv = document.getElementById("columnFive")
+let columnSixDiv = document.getElementById("columnSix")
+let columnSevenDiv = document.getElementById("columnSeven")
+
+let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
+let win = false      //checked under function checkForWin
+let currentPlayer    //whose turn it is!  :p
+
+
+function resetBoard () {
+    columnOne = []
+    columnTwo = []
+    columnThree = []
+    columnFour = []
+    columnFive = []
+    columnSix = []
+    columnSeven = []
 }
+
+
+
+
+function selectStartingPlayer() {
+    var tempNumber = Math.floor((Math.random() * 2))
+    if (tempNumber == 0) {
+        currentPlayer = "red"
+    } else {
+        currentPlayer = "black"
+    }
+    console.log("Starting player is: " + currentPlayer)
+    return
+}
+
+function switchPlayers() {
+    if (currentPlayer == "red") {
+        currentPlayer = "black"
+    } else {
+        currentPlayer = "red"
+    }
+    return
+}
+
 
 function checkForWin() {
     checkForWinHorizontal()
     checkForWinVertical()
     checkForWinDiagonal()
-}
-
-function checkForWinHorizontal() {
-    for () {
-
+    if (win == true) {
+        window.alert("Congratulations, " + currentPlayer + "!  You won!  Click OK to play again.")
+        resetBoard()
     }
 }
 
-function checkForWinVertical() {
-    for () {
-
-    }
-}
-
-function checkForWinDiagonal() {
-    for () {
+// function checkForWinHorizontal() {
+    //     for () {
         
-    }
-}
+        //     }
+        // }
+        
+        // function checkForWinVertical() {
+            //     for () {
+                
+                //     }
+                // }
+                
+                // function checkForWinDiagonal() {
+                    //     for () {
+                        
+                        //     }
+                        // }
 
+
+
+
+
+selectStartingPlayer()
+resetBoard()
