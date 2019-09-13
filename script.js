@@ -48,31 +48,101 @@
 //     []
 // ];
 
-function selectStartingPlayer() {
+let columnOne = []      //simply the array of discs in each column
+let columnTwo = []
+let columnThree = []
+let columnFour = []
+let columnFive = []
+let columnSix = []
+let columnSeven = []
 
+let columnOneDiv = document.getElementById("columnOne")    //where to actually draw a column
+let columnTwoDiv = document.getElementById("columnTwo")
+let columnThreeDiv = document.getElementById("columnThree")
+let columnFourDiv = document.getElementById("columnFour")
+let columnFiveDiv = document.getElementById("columnFive")
+let columnSixDiv = document.getElementById("columnSix")
+let columnSevenDiv = document.getElementById("columnSeven")
+
+let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
+let boardDivs = [columnOneDiv, columnTwoDiv, columnThreeDiv, columnFourDiv, columnFiveDiv, columnSixDiv, columnSevenDiv]
+
+let win = false      //checked under function checkForWin
+let currentPlayer    //whose turn it is!  :p
+
+
+function resetBoard () {
+    board.forEach( function(column){
+        column = []
+    })
+    boardDivs.forEach(  function(column) {
+        column.innerHTML = ""        
+    })
+    selectStartingPlayer()
 }
+
+function whenColumnIsClicked() {
+    console.log("A column was clicked")
+}
+
+
+function selectStartingPlayer() {
+    var tempNumber = Math.floor((Math.random() * 2))
+    if (tempNumber == 0) {
+        currentPlayer = "red"
+    } else {
+        currentPlayer = "black"
+    }
+    window.alert("Starting Player is: " + currentPlayer)
+    return
+}
+
+function switchPlayers() {
+    if (currentPlayer == "red") {
+        currentPlayer = "black"
+    } else {
+        currentPlayer = "red"
+    }
+    return
+}
+
 
 function checkForWin() {
     checkForWinHorizontal()
     checkForWinVertical()
     checkForWinDiagonal()
-}
-
-function checkForWinHorizontal() {
-    for () {
-
+    if (win == true) {
+        window.alert("Congratulations, " + currentPlayer + "!  You won!  Click OK to play again.")
+        resetBoard()
     }
 }
 
-function checkForWinVertical() {
-    for () {
-
-    }
-}
-
-function checkForWinDiagonal() {
-    for () {
+// function checkForWinHorizontal() {
+    //     for () {
         
-    }
-}
+        //     }
+        // }
+        
+        // function checkForWinVertical() {
+            //     for () {
+                
+                //     }
+                // }
+                
+                // function checkForWinDiagonal() {
+                    //     for () {
+                        
+                        //     }
+                        // }
 
+
+boardDivs.forEach( function(column){
+    column.addEventListener("click", function(whatIsClicked) {
+        targetColumn = this
+        console.log("target column: " + targetColumn.id)
+        whenColumnIsClicked()
+    })
+
+})
+
+resetBoard()

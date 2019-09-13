@@ -1,0 +1,35 @@
+.column:hover {
+    background-color: lightblue;
+}
+
+.container {
+    display: inline-flex;
+    flex-direction: row;
+    width: 700px;
+    height: 600px;
+    box-sizing: border-box;
+}
+
+.column {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    min-height: 450px;
+    min-width: 75px;
+    border: 1px solid blue;
+}
+
+ .red {                           /*specified red and black for classes so that I can assign them in javascript */
+    background: red;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 75px;
+    height: 75px;
+}
+
+.black {                         /*specified red and black for classes so that I can assign them in javascript */
+    background: black;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+}
