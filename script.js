@@ -48,7 +48,7 @@
 //     []
 // ];
 
-let columnOne = []
+let columnOne = []      //simply the array of discs in each column
 let columnTwo = []
 let columnThree = []
 let columnFour = []
@@ -56,8 +56,8 @@ let columnFive = []
 let columnSix = []
 let columnSeven = []
 
-let columnOneDiv = document.getElementById("columnOne")
-let columnTowDiv = document.getElementById("columnTwo")
+let columnOneDiv = document.getElementById("columnOne")    //where to actually draw a column
+let columnTwoDiv = document.getElementById("columnTwo")
 let columnThreeDiv = document.getElementById("columnThree")
 let columnFourDiv = document.getElementById("columnFour")
 let columnFiveDiv = document.getElementById("columnFive")
@@ -65,21 +65,25 @@ let columnSixDiv = document.getElementById("columnSix")
 let columnSevenDiv = document.getElementById("columnSeven")
 
 let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
+let boardDivs = [columnOneDiv, columnTwoDiv, columnThreeDiv, columnFourDiv, columnFiveDiv, columnSixDiv, columnSevenDiv]
+
 let win = false      //checked under function checkForWin
 let currentPlayer    //whose turn it is!  :p
 
 
 function resetBoard () {
-    columnOne = []
-    columnTwo = []
-    columnThree = []
-    columnFour = []
-    columnFive = []
-    columnSix = []
-    columnSeven = []
+    board.forEach( function(column){
+        column = []
+    })
+    boardDivs.forEach(  function(column) {
+        column.innerHTML = ""        
+    })
+    selectStartingPlayer()
 }
 
-
+function whenColumnIsClicked() {
+    console.log("A column was clicked")
+}
 
 
 function selectStartingPlayer() {
@@ -89,7 +93,7 @@ function selectStartingPlayer() {
     } else {
         currentPlayer = "black"
     }
-    console.log("Starting player is: " + currentPlayer)
+    window.alert("Starting Player is: " + currentPlayer)
     return
 }
 
@@ -132,8 +136,13 @@ function checkForWin() {
                         // }
 
 
+boardDivs.forEach( function(column){
+    column.addEventListener("click", function(whatIsClicked) {
+        targetColumn = this
+        console.log("target column: " + targetColumn.id)
+        whenColumnIsClicked()
+    })
 
+})
 
-
-selectStartingPlayer()
 resetBoard()
