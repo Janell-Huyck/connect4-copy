@@ -1,52 +1,4 @@
-// <!-- TODO List -->
 
-// <!-- Check for win.-->
-// <!-- When checking for win check diagnol, side to side, and up and down. -->
-
-// <!-- When placing a chip check whether the spot below is taken by another chip.-->
-
-// <!-- 2d array -->
-
-// <!-- Alternate players -->
-
-// <!-- Array is a string of words. "black" "red" "empty" as a placeholder-->
-
-// <!-- function that decides what player starts -->
-
-// <!-- function for placing which column the chip will go and *click handler* functionputting the chip into the column -->
-
-// <!-- draw board and screen with css that sections -->
-
-// <!-- class for each color chip and class for chip. -->
-
-// <!-- create board in HTML -->
-
-// <!-- need to know dimensions of board -->
-
-// <!-- click handler -->
-
-// <!-- once 6 discs are added to a column do NOT allow anymore. -->
-
-// <!-- each column has divs inside of it. -->
-
-// <!-- columns made with flex -->
-
-// <!-- String of arrays that represents where chips are -->
-
-// <!-- fucntion that pushes a chip into a column -->
-
-// <!-- use css as only a way to display the board and chips.  -->
-
-// <!-- HTML will NEED seven columns with click handler(js) -->
-
-// let board = [
-//     [],
-//     [],
-//     [],
-//     [],
-//     [],
-//     []
-// ];
 
 let columnOne = []      //simply the array of discs in each column
 let columnTwo = []
@@ -66,9 +18,39 @@ let columnSevenDiv = document.getElementById("columnSeven")
 
 let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
 let boardDivs = [columnOneDiv, columnTwoDiv, columnThreeDiv, columnFourDiv, columnFiveDiv, columnSixDiv, columnSevenDiv]
-
+let targetColumnDiv //
 let win = false      //checked under function checkForWin
 let currentPlayer    //whose turn it is!  :p
+let targetArray      //which array we are going to push the current player's color to
+
+
+
+
+
+//TO DO
+//not allow more than 6 discs to be placed
+//     check length of the array
+
+//determine wins
+//horizontal
+//veritcal
+//diagonal right
+//diagonal left
+
+
+
+
+function determineWhatArrayToPushTo(){
+    for (let i = 0 ; i < boardDivs.length; i++) {
+        if (targetColumnDiv === boardDivs[i]) {
+            targetArray = board[i]
+        }
+    }
+    
+    console.log("target array is:" + targetArray)
+
+    return targetArray
+}
 
 
 function resetBoard () {
@@ -82,9 +64,30 @@ function resetBoard () {
 }
 
 function whenColumnIsClicked() {
-    console.log("A column was clicked")
+    //check for room to put a disc -- TO DO
+    drawNewDisc()
+    targetArray = determineWhatArrayToPushTo()
+    addDiscToArray(targetArray)
+    switchPlayers()
 }
 
+function drawNewDisc() {
+    let newDiv = document.createElement("div")
+    newDiv.classList.add(currentPlayer)
+    if (currentPlayer === "red"){
+        newDiv.dataset.color = "red"
+    } else {
+        newDiv.dataset.color = "black"
+    }
+    console.log(newDiv.class)
+    targetColumnDiv.appendChild(newDiv)
+}
+
+function addDiscToArray() {
+    targetArray.push(currentPlayer)
+    console.log(targetArray)
+
+}
 
 function selectStartingPlayer() {
     var tempNumber = Math.floor((Math.random() * 2))
@@ -138,8 +141,8 @@ function checkForWin() {
 
 boardDivs.forEach( function(column){
     column.addEventListener("click", function(whatIsClicked) {
-        targetColumn = this
-        console.log("target column: " + targetColumn.id)
+        targetColumnDiv = this
+        console.log("target column: " + targetColumnDiv.id)
         whenColumnIsClicked()
     })
 
