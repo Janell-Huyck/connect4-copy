@@ -23,10 +23,6 @@ let win = false      //checked under function checkForWin
 let currentPlayer    //whose turn it is!  :p
 let targetArray      //which array we are going to push the current player's color to
 
-
-
-
-
 //TO DO
 //not allow more than 6 discs to be placed
 //     check length of the array
@@ -37,8 +33,27 @@ let targetArray      //which array we are going to push the current player's col
 //diagonal right
 //diagonal left
 
+function whenColumnIsClicked() {
+    //check for room to put a disc -- TO DO
+    if (targetColumnDiv.childElementCount >= 6) {
+        return
+    }
+        drawNewDisc()
+        targetArray = determineWhatArrayToPushTo()
+        addDiscToArray(targetArray)
+        switchPlayers()
+}
 
-
+function drawNewDisc() {
+    let newDiv = document.createElement("div")
+    newDiv.classList.add(currentPlayer)
+    if (currentPlayer === "red"){
+        newDiv.dataset.color = "red"
+    } else {
+        newDiv.dataset.color = "black"
+    }
+    targetColumnDiv.appendChild(newDiv)
+}
 
 function determineWhatArrayToPushTo(){
     for (let i = 0 ; i < boardDivs.length; i++) {
@@ -46,12 +61,8 @@ function determineWhatArrayToPushTo(){
             targetArray = board[i]
         }
     }
-    
-    console.log("target array is:" + targetArray)
-
     return targetArray
 }
-
 
 function resetBoard () {
     board.forEach( function(column){
@@ -63,30 +74,8 @@ function resetBoard () {
     selectStartingPlayer()
 }
 
-function whenColumnIsClicked() {
-    //check for room to put a disc -- TO DO
-    drawNewDisc()
-    targetArray = determineWhatArrayToPushTo()
-    addDiscToArray(targetArray)
-    switchPlayers()
-}
-
-function drawNewDisc() {
-    let newDiv = document.createElement("div")
-    newDiv.classList.add(currentPlayer)
-    if (currentPlayer === "red"){
-        newDiv.dataset.color = "red"
-    } else {
-        newDiv.dataset.color = "black"
-    }
-    console.log(newDiv.class)
-    targetColumnDiv.appendChild(newDiv)
-}
-
 function addDiscToArray() {
-    targetArray.push(currentPlayer)
-    console.log(targetArray)
-
+    targetArray.push(currentPlayer) 
 }
 
 function selectStartingPlayer() {
@@ -97,6 +86,9 @@ function selectStartingPlayer() {
         currentPlayer = "black"
     }
     window.alert("Starting Player is: " + currentPlayer)
+    let color = document.getElementById("playerColor")
+    color.innerText = currentPlayer + "s"
+    console.log(color)
     return
 }
 
@@ -106,9 +98,10 @@ function switchPlayers() {
     } else {
         currentPlayer = "red"
     }
+    let color = document.getElementById("playerColor")
+    color.innerText = currentPlayer + "s"
     return
 }
-
 
 function checkForWin() {
     checkForWinHorizontal()
@@ -119,6 +112,16 @@ function checkForWin() {
         resetBoard()
     }
 }
+
+boardDivs.forEach( function(column){
+    column.addEventListener("click", function(whatIsClicked) {
+        targetColumnDiv = this
+        whenColumnIsClicked()
+        console.log(targetColumnDiv.childElementCount)
+    })
+    
+})
+resetBoard()
 
 // function checkForWinHorizontal() {
     //     for () {
@@ -139,13 +142,3 @@ function checkForWin() {
                         // }
 
 
-boardDivs.forEach( function(column){
-    column.addEventListener("click", function(whatIsClicked) {
-        targetColumnDiv = this
-        console.log("target column: " + targetColumnDiv.id)
-        whenColumnIsClicked()
-    })
-
-})
-
-resetBoard()
