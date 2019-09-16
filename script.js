@@ -87,8 +87,7 @@ function selectStartingPlayer() {
     }
     window.alert("Starting Player is: " + currentPlayer)
     let color = document.getElementById("whosTurn")
-    color.innerText = `It is ${currentPlayer}s turn`
-    console.log(color)
+    color.innerText = `It is ${currentPlayer}s turn!`
     return
 }
 
@@ -98,8 +97,8 @@ function switchPlayers() {
     } else {
         currentPlayer = "red"
     }
-    let color = document.getElementById("playerColor")
-    color.innerText = currentPlayer + "s"
+    let color = document.getElementById("whosTurn")
+    color.innerText = `It is ${currentPlayer}s turn!`
     return
 }
 
