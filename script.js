@@ -86,8 +86,8 @@ function selectStartingPlayer() {
         currentPlayer = "black"
     }
     window.alert("Starting Player is: " + currentPlayer)
-    let color = document.getElementById("playerColor")
-    color.innerText = currentPlayer + "s"
+    let color = document.getElementById("whosTurn")
+    color.innerText = `It is ${currentPlayer}s turn`
     console.log(color)
     return
 }
@@ -119,7 +119,6 @@ boardDivs.forEach( function(column){
         whenColumnIsClicked()
         console.log(targetColumnDiv.childElementCount)
     })
-    
 })
 resetBoard()
 
