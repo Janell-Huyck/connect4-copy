@@ -121,22 +121,3 @@ boardDivs.forEach( function(column){
 })
 resetBoard()
 
-// function checkForWinHorizontal() {
-    //     for () {
-        
-        //     }
-        // }
-        
-        // function checkForWinVertical() {
-            //     for () {
-                
-                //     }
-                // }
-                
-                // function checkForWinDiagonal() {
-                    //     for () {
-                        
-                        //     }
-                        // }
-
-
