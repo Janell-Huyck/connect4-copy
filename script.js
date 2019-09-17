@@ -41,6 +41,7 @@ function whenColumnIsClicked() {
         drawNewDisc()
         targetArray = determineWhatArrayToPushTo()
         addDiscToArray(targetArray)
+        checkForWinVertical()
         switchPlayers()
 }
 
@@ -121,3 +122,40 @@ boardDivs.forEach( function(column){
 })
 resetBoard()
 
+<<<<<<< HEAD
+=======
+// function checkForWinHorizontal() {
+    //     for () {
+        
+        //     }
+        // }
+        
+        function checkForWinVertical() {
+            // if (cell === board[y][x+1] && cell === board[y][x+2]) { ... }
+                console.log(targetArray.slice(-1))
+            
+            var lastPlaceItemInColumn = targetArray.slice(-1)
+            }
+
+            // if (targetArray.slice(-4) === "undefined") {   ++++++++++this doesn't work :( +++++++++++++++++++++++
+            //     console.log("not 4 discs played yet")
+            }
+            
+             if (targetArray.slice(-4)["red", "red", "red", "red"]) {
+                console.log("red match found")
+            }
+            // console.log(targetArray.slice(-2))
+
+
+                   
+            
+                
+                
+                // function checkForWinDiagonal() {
+                    //     for () {
+                        
+                        //     }
+                        // }
+
+
+>>>>>>> 97ae41de328bb340fe513c582eddc3f1fea689ef
