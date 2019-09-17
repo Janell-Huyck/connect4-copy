@@ -64,11 +64,11 @@ function drawNewDisc() {
 function determineWhatArrayToPushTo(){
     for (let i = 0 ; i < boardDivs.length; i++) {
         if (targetColumnDiv === boardDivs[i]) {
-            
-            whatRowIsItAnyway = targetArray.length            // determine row and column here!  
+            console.log(targetArray)
+            targetArray = board[i]
+            whatRowIsItAnyway = targetArray.length         // determine row and column here!  
             whatColumnIsItAnyway = i
             
-            targetArray = board[i]
         }
     }
     return targetArray
@@ -77,13 +77,19 @@ function determineWhatArrayToPushTo(){
 
 
 function resetBoard () {
+    // location.reload()
     board.forEach( function(column){
         column = []
     })
     boardDivs.forEach(  function(column) {
         column.innerHTML = ""        
     })
-    selectStartingPlayer()
+    win = false
+    currentPlayer = "red"
+    // selectStartingPlayer()
+    console.log("current player is: " + currentPlayer)
+    let color = document.getElementById("whosTurn")
+    color.innerText = `It is ${currentPlayer}s turn!`
 }
 
 
@@ -94,18 +100,16 @@ function addDiscToArray() {
 
 
 
-function selectStartingPlayer() {
-    var tempNumber = Math.floor((Math.random() * 2))
-    if (tempNumber == 0) {
-        currentPlayer = "red"
-    } else {
-        currentPlayer = "black"
-    }
-    window.alert("Starting Player is: " + currentPlayer)
-    let color = document.getElementById("whosTurn")
-    color.innerText = `It is ${currentPlayer}s turn!`
-    return
-}
+// function selectStartingPlayer() {
+//     var tempNumber = Math.floor((Math.random() * 2))
+//     if (tempNumber == 0) {
+//         currentPlayer = "red"
+//     } else {
+//         currentPlayer = "black"
+//     }
+//     window.alert("Starting Player is: " + currentPlayer)
+//     return
+// }
 
 
 
@@ -130,8 +134,8 @@ function checkForWin() {
     console.log("the grid numbers in [column] , [row] are:" + whatColumnIsItAnyway + "and" + whatRowIsItAnyway )
 
 
-    
-    // checkForWinHorizontal()
+
+    checkForWinHorizontal()
     checkForWinVertical()
     // checkForWinDiagonalRight()
     // checkForWinDiagonalLeft()
@@ -155,11 +159,22 @@ boardDivs.forEach( function(column){                                 // our clic
 
 
 function checkForWinHorizontal() {
-    //     for () {
+        for (let i = 0; i <4; i++) {
+            if (board[i][whatRowIsItAnyway] === undefined) {
+                console.log("empty disc place")
+            }
+            else if ( (board[i][whatRowIsItAnyway]  === board[i+1][whatRowIsItAnyway])   && 
+                  (board[i][whatRowIsItAnyway] === board[i+2][whatRowIsItAnyway])  &&
+                  (board[i][whatRowIsItAnyway] === board[i+3][whatRowIsItAnyway])){
+
+               return win = true
+            }
+
         
-        //     }
         }
-        
+    }    
+    
+    
     function checkForWinVertical() {
         // if (cell === board[y][x+1] && cell === board[y][x+2]) { ... }
         // console.log(targetArray.slice(-1))
