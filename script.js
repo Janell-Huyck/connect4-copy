@@ -122,8 +122,6 @@ boardDivs.forEach( function(column){
 })
 resetBoard()
 
-<<<<<<< HEAD
-=======
 // function checkForWinHorizontal() {
     //     for () {
         
@@ -139,7 +137,7 @@ resetBoard()
 
             // if (targetArray.slice(-4) === "undefined") {   ++++++++++this doesn't work :( +++++++++++++++++++++++
             //     console.log("not 4 discs played yet")
-            }
+            // }
             
              if (targetArray.slice(-4)["red", "red", "red", "red"]) {
                 console.log("red match found")
@@ -158,4 +156,3 @@ resetBoard()
                         // }
 
 
->>>>>>> 97ae41de328bb340fe513c582eddc3f1fea689ef
