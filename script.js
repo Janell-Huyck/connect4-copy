@@ -19,9 +19,12 @@ let columnSevenDiv = document.getElementById("columnSeven")
 let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
 let boardDivs = [columnOneDiv, columnTwoDiv, columnThreeDiv, columnFourDiv, columnFiveDiv, columnSixDiv, columnSevenDiv]
 let targetColumnDiv //
-let win = false      //checked under function checkForWin
+let win   //checked under function checkForWin
 let currentPlayer    //whose turn it is!  :p
 let targetArray      //which array we are going to push the current player's color to
+let whatColumnIsItAnyway //
+let whatRowIsItAnyway
+let color //
 
 //TO DO
 //not allow more than 6 discs to be placed
@@ -34,16 +37,19 @@ let targetArray      //which array we are going to push the current player's col
 //diagonal left
 
 function whenColumnIsClicked() {
-    //check for room to put a disc -- TO DO
     if (targetColumnDiv.childElementCount >= 6) {
         return
     }
         drawNewDisc()
         targetArray = determineWhatArrayToPushTo()
         addDiscToArray(targetArray)
-        checkForWinVertical()
+        checkForWin()
         switchPlayers()
+        console.log(board)
+        console.log(board[0][0] == board[1][1])
 }
+
+
 
 function drawNewDisc() {
     let newDiv = document.createElement("div")
@@ -56,28 +62,55 @@ function drawNewDisc() {
     targetColumnDiv.appendChild(newDiv)
 }
 
+
+
 function determineWhatArrayToPushTo(){
     for (let i = 0 ; i < boardDivs.length; i++) {
         if (targetColumnDiv === boardDivs[i]) {
+            
             targetArray = board[i]
+            whatRowIsItAnyway = targetArray.length         // determine row and column here!  
+            whatColumnIsItAnyway = i
+            // console.log(whatColumnIsItAnyway)
+            // console.log("targetArray: " + targetArray)
         }
     }
     return targetArray
 }
 
 function resetBoard () {
+    // location.reload()
     board.forEach( function(column){
         column = []
     })
     boardDivs.forEach(  function(column) {
         column.innerHTML = ""        
     })
+    win = false
+    color = "red"
+    currentPlayer = "red"
+    columnOne.length = 0     //simply the array of discs in each column
+    columnTwo.length = 0
+    columnThree.length = 0
+    columnFour.length = 0
+    columnFive.length = 0
+    columnSix.length = 0
+    columnSeven.length = 0
+    console.log("Current player is set to " + currentPlayer)
     selectStartingPlayer()
+    // console.log("current player is: " + currentPlayer)
+}
+
+function whosTurnIsItAnyways() {
+    color = document.getElementById("whosTurn")
+    color.innerText = `It is ${currentPlayer}s turn!`
 }
 
 function addDiscToArray() {
-    targetArray.push(currentPlayer) 
+    targetArray.push(currentPlayer)
 }
+
+
 
 function selectStartingPlayer() {
     var tempNumber = Math.floor((Math.random() * 2))
@@ -86,11 +119,10 @@ function selectStartingPlayer() {
     } else {
         currentPlayer = "black"
     }
-    window.alert("Starting Player is: " + currentPlayer)
-    let color = document.getElementById("whosTurn")
-    color.innerText = `It is ${currentPlayer}s turn!`
-    return
+    return currentPlayer
 }
+
+
 
 function switchPlayers() {
     if (currentPlayer == "red") {
@@ -103,56 +135,82 @@ function switchPlayers() {
     return
 }
 
+
+
 function checkForWin() {
+    
+    // console.log("bottom left is: " + board[0][0])
+    // console.log("last disc placed is: " + targetArray[targetArray.length -1])
+    // console.log("the column (determined by targetArray is: " + targetArray)
+    // console.log("the grid numbers in [column] , [row] are:" + whatColumnIsItAnyway + "and" + whatRowIsItAnyway )
+
+
+
     checkForWinHorizontal()
     checkForWinVertical()
-    checkForWinDiagonal()
+    // checkForWinDiagonalRight()
+    // checkForWinDiagonalLeft()
+
+
+
+
     if (win == true) {
         window.alert("Congratulations, " + currentPlayer + "!  You won!  Click OK to play again.")
         resetBoard()
+        console.log("win is set to " + win)
     }
 }
 
-boardDivs.forEach( function(column){
+boardDivs.forEach( function(column){                                 // our click-handlers
     column.addEventListener("click", function(whatIsClicked) {
         targetColumnDiv = this
         whenColumnIsClicked()
-        console.log(targetColumnDiv.childElementCount)
     })
 })
-resetBoard()
 
-// function checkForWinHorizontal() {
+
+
+function checkForWinHorizontal() {
+    for (let i = 0; i < 4; i++) {
+        if (board[i][whatRowIsItAnyway] === undefined) {
+        } else if ( (board[i][whatRowIsItAnyway]  === board[i+1][whatRowIsItAnyway])   && 
+                (board[i][whatRowIsItAnyway] === board[i+2][whatRowIsItAnyway])  &&
+                (board[i][whatRowIsItAnyway] === board[i+3][whatRowIsItAnyway])){
+                console.log(currentPlayer + " won by horizontal")
+            return win = true
+            
+        }
+    }
+}    
+
+// board[whatColumnIsItAnyways][0] === board[whatColumnIsItAnyways][1] ... etc.  Same format as the horizontal.  stop at whatColumnIsItAnyways.length()
+    
+function checkForWinVertical() {
+    for (let i = 0; i <= 5; i++) {
+        // console.log(board[i][0] === board[i][3])
+        if (board[whatColumnIsItAnyway][i] === undefined) {
+
+        } else if ((board[whatColumnIsItAnyway][i] === board[whatColumnIsItAnyway][i - 1]) &&
+                (board[whatColumnIsItAnyway][i] === board[whatColumnIsItAnyway][i - 2]) &&
+                (board[whatColumnIsItAnyway][i] === board[whatColumnIsItAnyway][i - 3])) {
+                console.log(currentPlayer + " won by vertical")
+                return win = true
+
+        }
+    }
+}
+function checkForWinDiagonalRight() {
     //     for () {
         
         //     }
-        // }
+        }
+  
+function checkForWinDiagonalRight() {
+    //     for () {
         
-        function checkForWinVertical() {
-            // if (cell === board[y][x+1] && cell === board[y][x+2]) { ... }
-                console.log(targetArray.slice(-1))
-            
-            var lastPlaceItemInColumn = targetArray.slice(-1)
-            }
+        //     }
+        }
 
-            // if (targetArray.slice(-4) === "undefined") {   ++++++++++this doesn't work :( +++++++++++++++++++++++
-            //     console.log("not 4 discs played yet")
-            // }
-            
-             if (targetArray.slice(-4)["red", "red", "red", "red"]) {
-                console.log("red match found")
-            }
-            // console.log(targetArray.slice(-2))
-
-
-                   
-            
-                
-                
-                // function checkForWinDiagonal() {
-                    //     for () {
-                        
-                        //     }
-                        // }
-
-
+                    
+resetBoard()
+whosTurnIsItAnyways()
