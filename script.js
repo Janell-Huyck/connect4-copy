@@ -45,13 +45,13 @@ function whenColumnIsClicked() {
         addDiscToArray(targetArray)
         checkForWin()
         switchPlayers()
-        console.log(board)
+        // console.log(board)
         // console.log((board[whatColumnIsItAnyway ][whatRowIsItAnyway ] === board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1]) && 
         //             (board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1] === board[whatColumnIsItAnyway - 2][whatRowIsItAnyway - 2]) && 
         //             (board[whatColumnIsItAnyway -2][whatRowIsItAnyway - 2] === board[whatColumnIsItAnyway - 3][whatRowIsItAnyway - 3]))
-        console.log((board[whatColumnIsItAnyway][whatRowIsItAnyway] === board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1]) && 
-                    (board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1] === board[whatColumnIsItAnyway + 2][whatRowIsItAnyway + 2]) && 
-                    (board[whatColumnIsItAnyway +2][whatRowIsItAnyway + 2] === board[whatColumnIsItAnyway + 3][whatRowIsItAnyway + 3]))
+        // console.log((board[whatColumnIsItAnyway][whatRowIsItAnyway] === board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1]) && 
+        //             (board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1] === board[whatColumnIsItAnyway + 2][whatRowIsItAnyway + 2]) && 
+        //             (board[whatColumnIsItAnyway +2][whatRowIsItAnyway + 2] === board[whatColumnIsItAnyway + 3][whatRowIsItAnyway + 3]))
                 }
 
 
@@ -94,7 +94,7 @@ function resetBoard () {
     win = false
     // color = "red"
     currentPlayer = "red"
-    console.log("Current player is set to " + currentPlayer)
+    // console.log("Current player is set to " + currentPlayer)
     selectStartingPlayer()
     // console.log("current player is: " + currentPlayer)
 }
@@ -141,14 +141,15 @@ function checkForWin() {
     // console.log("last disc placed is: " + targetArray[targetArray.length -1])
     // console.log("the column (determined by targetArray is: " + targetArray)
     // console.log("the grid numbers in [column] , [row] are:" + whatColumnIsItAnyway + "and" + whatRowIsItAnyway )
-
-
-
+    
+    
+    
     checkForWinHorizontal()
     checkForWinVertical()
     // checkForWinDiagonalRight()
-    // checkForWinDiagonalLeft()
-
+    checkForWinDiagonalDownRight()
+    let silly = checkForWinDiagonalDownRight()
+    
 
 
 
@@ -200,15 +201,62 @@ function checkForWinVertical() {
 function checkForWinDiagonalUpRight() {
     // if ()
 }
-  
+
 function checkForWinDiagonalDownRight() {
+    //build an array to search
+    var diagonalDownRightArray = []
+    var currentDisc = ""
+    console.log("disc was placed in column: " + whatColumnIsItAnyway)
+    
+    var heightOfDiscDropped = board[whatColumnIsItAnyway].length
+    var farRightColumnToStartArray = whatColumnIsItAnyway + (heightOfDiscDropped -1)
+
+    console.log("far right column is in column: " + farRightColumnToStartArray)
+    
+    var columnWeAreCurrentlyChecking = farRightColumnToStartArray  //we will modify this in the loop
+    
+    for (let i = 0; i <= 6; i ++)  {   //potentially searching all rows.  "i" is the row we're checking
+    //check to see if column we're checking is in the board
+    if (  (columnWeAreCurrentlyChecking <= 6) && (columnWeAreCurrentlyChecking >= 0) ) {
+        //find location of disc we are checking
+        currentDisc = board[columnWeAreCurrentlyChecking][i]
+        console.log("we are examining " + currentDisc)
+        if ((currentDisc === undefined) || (currentDisc === "")) {
+            if (diagonalDownRightArray.length == 0) {
+                console.log("the starting disc at column: " + columnWeAreCurrentlyChecking + " is not there.  Checking next space.")
+                continue    // if the disc isn't there, start on the next row up
+            } 
+            console.log("there is a missing disc in this array.  logging a non-repeating variable on column: " + columnWeAreCurrentlyChecking)
+            
+            diagonalDownRightArray.push(i)  // there is a break in the diagonals.  just put a non-repeating item in as a placeholder.
+        }  else {
+            diagonalDownRightArray.push(currentDisc)
+            console.log("found disc at column: " + columnWeAreCurrentlyChecking)
+            console.log("diagonalDownRightArray is: " + diagonalDownRightArray)
+        }
+    } else {
+        console.log("attempted to check column " + columnWeAreCurrentlyChecking + " but it was outside of the board.")
+        continue
+    }
+    console.log("the column we are checking is: " + columnWeAreCurrentlyChecking)
+    
+    columnWeAreCurrentlyChecking = columnWeAreCurrentlyChecking - 1
+    console.log("the column we are checking has changed to: " + columnWeAreCurrentlyChecking)
+    
+
+    //     next item = board[farRightColumn +i][i]
+    //     downRightArray.push(item)
+    //     console.log(downRightArray)
     //     for () {
         
-        //     }
-        }
+    //     }
+}
+return diagonalDownRightArray
+}
 
                     
 resetBoard()
 whosTurnIsItAnyways()
 
-// When you place a disk check down left and up right. If both disks are the same color as placed disk coninue looping up right and down left.
+// When you place a disk check down 
+// left and up right. If both disks are the same color as placed disk coninue looping up right and down left
