@@ -1,5 +1,3 @@
-
-
 let columnOne = []      //simply the array of discs in each column
 let columnTwo = []
 let columnThree = []
@@ -15,6 +13,8 @@ let columnFourDiv = document.getElementById("columnFour")
 let columnFiveDiv = document.getElementById("columnFive")
 let columnSixDiv = document.getElementById("columnSix")
 let columnSevenDiv = document.getElementById("columnSeven")
+
+let arrayOfDiaganolUpRight = []  //Up and to the right
 
 let board = [columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix, columnSeven]
 let boardDivs = [columnOneDiv, columnTwoDiv, columnThreeDiv, columnFourDiv, columnFiveDiv, columnSixDiv, columnSevenDiv]
@@ -46,8 +46,13 @@ function whenColumnIsClicked() {
         checkForWin()
         switchPlayers()
         console.log(board)
-        console.log(board[0][0] == board[1][1])
-}
+        // console.log((board[whatColumnIsItAnyway ][whatRowIsItAnyway ] === board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1]) && 
+        //             (board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1] === board[whatColumnIsItAnyway - 2][whatRowIsItAnyway - 2]) && 
+        //             (board[whatColumnIsItAnyway -2][whatRowIsItAnyway - 2] === board[whatColumnIsItAnyway - 3][whatRowIsItAnyway - 3]))
+        console.log((board[whatColumnIsItAnyway][whatRowIsItAnyway] === board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1]) && 
+                    (board[whatColumnIsItAnyway + 1][whatRowIsItAnyway + 1] === board[whatColumnIsItAnyway + 2][whatRowIsItAnyway + 2]) && 
+                    (board[whatColumnIsItAnyway +2][whatRowIsItAnyway + 2] === board[whatColumnIsItAnyway + 3][whatRowIsItAnyway + 3]))
+                }
 
 
 
@@ -81,21 +86,14 @@ function determineWhatArrayToPushTo(){
 function resetBoard () {
     // location.reload()
     board.forEach( function(column){
-        column = []
+        column.length = 0
     })
     boardDivs.forEach(  function(column) {
         column.innerHTML = ""        
     })
     win = false
-    color = "red"
+    // color = "red"
     currentPlayer = "red"
-    columnOne.length = 0     //simply the array of discs in each column
-    columnTwo.length = 0
-    columnThree.length = 0
-    columnFour.length = 0
-    columnFive.length = 0
-    columnSix.length = 0
-    columnSeven.length = 0
     console.log("Current player is set to " + currentPlayer)
     selectStartingPlayer()
     // console.log("current player is: " + currentPlayer)
@@ -199,13 +197,11 @@ function checkForWinVertical() {
         }
     }
 }
-function checkForWinDiagonalRight() {
-    //     for () {
-        
-        //     }
-        }
+function checkForWinDiagonalUpRight() {
+    // if ()
+}
   
-function checkForWinDiagonalRight() {
+function checkForWinDiagonalDownRight() {
     //     for () {
         
         //     }
@@ -214,3 +210,5 @@ function checkForWinDiagonalRight() {
                     
 resetBoard()
 whosTurnIsItAnyways()
+
+// When you place a disk check down left and up right. If both disks are the same color as placed disk coninue looping up right and down left.
