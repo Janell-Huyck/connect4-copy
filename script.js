@@ -22,8 +22,8 @@ let targetColumnDiv //
 let win = false      //checked under function checkForWin
 let currentPlayer    //whose turn it is!  :p
 let targetArray      //which array we are going to push the current player's color to
-let whatColumnIsItAnyway //
-let whatRowIsItAnyway //
+let whatColumnIsItAnyway //  array value in board[]   (0,1,2,3...)
+let whatRowIsItAnyway //   array value of the row we're working with
 
 //TO DO
 //not allow more than 6 discs to be placed
