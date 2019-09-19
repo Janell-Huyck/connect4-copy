@@ -28,6 +28,7 @@ h1 {
     flex-direction: column-reverse;
     min-height: 462px;
     min-width: 77px;
+    border: black 1px solid;
 }
 
  .red {                           /*specified red and black for classes so that I can assign them in javascript */
