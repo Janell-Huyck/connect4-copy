@@ -206,34 +206,24 @@ function checkForWinDiagonalUpRight() {
 
 function checkForWinDiagonalDownRight() {
   var diagonalDownRightArray = buildAnArrayDiagonalDownRight();
-  var win = checkDiagonalArrayForWin();
+  var win = checkDiagonalArrayForWin(diagonalDownRightArray);
   return win;
 }
 
-function checkDiagonalArrayForWin() {
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
-    //++++++++++++++++TO DO ++++++++++++++++++++++++++
+
+
+function checkDiagonalArrayForWin(array) {
+  for (let j = 0; j < array.length; j++) {
+     if (
+      array[j] === array[j + 1 ] &&
+      array[j] === array[j + 2] &&
+      array[j] === array[j + 3]
+    ) {
+      console.log(currentPlayer + " won by diagonal");
+      return (win = true);
+    }
+  }
+
 }
 
 function buildAnArrayDiagonalDownRight() {
