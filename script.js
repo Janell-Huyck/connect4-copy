@@ -42,6 +42,7 @@ let targetArray; //which array we are going to push the current player's color t
 let whatColumnIsItAnyway; // the array index of the column we're working on
 let whatRowIsItAnyway; // the array index of the item row that we're working on
 let color; //
+let clicks = 0
 
 //TO DO
 //not allow more than 6 discs to be placed
@@ -57,11 +58,13 @@ function whenColumnIsClicked() {
   if (targetColumnDiv.childElementCount >= 6) {
     return;
   }
+  checkForDraw()
   drawNewDisc();
   targetArray = determineWhatArrayToPushTo();
   addDiscToArray(targetArray);
   checkForWin();
   switchPlayers();
+  console.log(clicks)
   // console.log(board)
   // console.log((board[whatColumnIsItAnyway ][whatRowIsItAnyway ] === board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1]) &&
   //             (board[whatColumnIsItAnyway - 1][whatRowIsItAnyway - 1] === board[whatColumnIsItAnyway - 2][whatRowIsItAnyway - 2]) &&
@@ -104,6 +107,7 @@ function resetBoard() {
     column.innerHTML = "";
   });
   win = false;
+  clicks = 0
   // color = "red"
   currentPlayer = "red";
   // console.log("Current player is set to " + currentPlayer)
@@ -150,8 +154,13 @@ function checkForWin() {
   checkForWinHorizontal();
   checkForWinVertical();
   // checkForWinDiagonalRight()
+  checkForWinDiagonalUpRight()
   checkForWinDiagonalDownRight();
 
+if (clicks === 42) {
+    window.alert("DRAW")
+    resetBoard()
+}
   if (win == true) {
     window.alert(
       "Congratulations, " +
@@ -201,7 +210,9 @@ function checkForWinVertical() {
   }
 }
 function checkForWinDiagonalUpRight() {
-  // if ()
+    let diagonalUpRightArray = buildAnArrayDiagonalUpRight()
+    let win = checkDiagonalArrayForWin(diagonalUpRightArray)
+    return win;
 }
 
 function checkForWinDiagonalDownRight() {
@@ -261,6 +272,48 @@ function buildAnArrayDiagonalDownRight() {
   }
   console.log("diagonalDownRightArray is: " + diagonalDownRightArray);
   return diagonalDownRightArray;
+}
+
+function buildAnArrayDiagonalUpRight() {
+    //build an array to search
+    var diagonalUpRightArray = [];
+    var currentDisc = "";
+    var heightOfDiscDropped = board[whatColumnIsItAnyway].length;
+    var farLeftColumnToStartArray = whatColumnIsItAnyway - heightOfDiscDropped;
+  
+    var columnWeAreCurrentlyChecking = farLeftColumnToStartArray; //we will modify this in the loop
+  
+    //potentially searching all rows.  "i" is the row we're checking
+    for (let i = 0; i <= 6; i++) {
+        columnWeAreCurrentlyChecking = columnWeAreCurrentlyChecking + 1;
+        //check to see if column we're checking is in the board
+  
+        if (
+        //check that the column is from 0 - 6
+        columnWeAreCurrentlyChecking <= 6 &&
+        columnWeAreCurrentlyChecking >= 0
+        ) {
+        //find location of disc we are checking
+        currentDisc = board[columnWeAreCurrentlyChecking][i];
+  
+        if (currentDisc === undefined) {
+            // there is a break in the diagonals.  just put a non-repeating item in as a placeholder.
+            diagonalUpRightArray.push(i);
+        } else {
+            // there is a disc in the diagonals.  put the color of the disc
+            diagonalUpRightArray.push(currentDisc);
+        }
+        } else {
+        continue;
+        }
+    }
+    console.log("diagonalUpRightArray is: " + diagonalUpRightArray);
+    return diagonalUpRightArray;
+}
+
+function checkForDraw() {
+    clicks++
+    return clicks
 }
 
 resetBoard();
