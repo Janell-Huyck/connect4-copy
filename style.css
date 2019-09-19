@@ -10,16 +10,17 @@ h1 {
 }
 
 .column:hover {
-    background-color: lightblue;
+    background-color: lightgrey;
 }
 
-.container {
+#container {
+    align-items: center;
     display: inline-flex;
     flex-direction: row;
-    width: 700px;
-    height: 600px;
+    width: auto;
+    height: auto;
     box-sizing: border-box;
-    border: black 2px solid;
+    border: black 10px solid;
 }
 
 .column {
@@ -27,15 +28,16 @@ h1 {
     flex-direction: column-reverse;
     min-height: 462px;
     min-width: 77px;
-    border: 1px solid blue;
 }
 
  .red {                           /*specified red and black for classes so that I can assign them in javascript */
     background: red;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 1px solid red;
     width: 75px;
     height: 75px;
+    background-image: url(./MattDisk.png);
+    background-repeat: round;
 }
 
 .black {                         /*specified red and black for classes so that I can assign them in javascript */
@@ -44,6 +46,8 @@ h1 {
     border: 1px solid black;
     width: 75px;
     height: 75px;
+    background-image: url(./DMGDisk.png);
+    background-repeat: round
 }
 
 #whosTurn {
